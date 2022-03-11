@@ -1,93 +1,48 @@
-import React from 'react'
-import { Typography, AppBar, Card, CardActions, CardContent, CardMedia, CssBaseline, Grid, Toolbar, Container, Button } from '@material-ui/core'
-import { PhotoCamera } from '@material-ui/icons'
-import useStyles from './styles'
+import './app.css'
+import Topbar from "./components/topbar/Topbar";
+import Sidebar from "./components/sidebar/Sidebar";
+import Home from './pages/home/Home';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import UserList from './pages/userList/UserList';
+import User from './pages/user/User';
+import NewUser from './pages/newUser/NewUser';
+import ProductList from './pages/productList/ProductList';
+import Product from './pages/product/Product';
+import NewProduct from './pages/newProduct/NewProduct';
 
-const cards =[1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-
-const App = () => {
-    const classes = useStyles();
-  return (
-    <>
-        <CssBaseline/>
-        <AppBar position='relative'>
-            <Toolbar>
-                <PhotoCamera  className={classes.icon}/>
-                <Typography variant='h6'>
-                    Photo Album
-                </Typography>
-            </Toolbar>
-        </AppBar>
-        <main>
-            <div className={classes.container}>
-                <Container maxWidth='sm'>
-                    <Typography variant='h2' align='center' color='textPrimary' gutterBottom>
-                        Photo Album
-                    </Typography>
-                    <Typography variant='h5' align='center' color='textSecondary' paragraph>
-                        Hello everyone This is a Photo album and i am try to make this sentence as long as possible so we can see how does it look like on the screen 
-
-                    </Typography>
-                    <div className={classes.button}>
-                        <Grid container spacing={2} justify = "center">
-                            <Grid item>
-                                <Button variant='contained' color='primary'>
-                                    see my photos
-                                </Button>
-                            </Grid>
-                            <Grid item>
-                                <Button variant='outlined' color='primary'>
-                                    secondary Actions
-                                </Button>
-                            </Grid>
-
-                        </Grid>
-                    </div>
-                </Container>
-            </div>
-            <container className={classes.cardGrid} maxWidth ="md">
-                <Grid container spacing={4}>
-                {cards.map((card)=> (
-                    <Grid item key={card} xs={12} sm={6} md={4}>
-                        <Card className={classes.card}>
-                            <CardMedia 
-                                className= {classes.cardMedia}
-                                image = "https://source.unsplash.com/random"
-                                title="image title"
-                            />
-                            <CardContent className={classes.CardContent}>
-                                <Typography gutterBottom variant='h5'>
-                                    Heading
-                                </Typography>
-                                <Typography>
-                                    
-                              Hello everyone This is a Photo album and i am try to make this sentence as long as possible 
-                              so we can see how does it look like on the screen 
-
-                                </Typography>
-                            </CardContent>
-                            <CardActions>
-                                <Button size="small" color="primary">View</Button>
-                                <Button size="small" color="primary">edit</Button>
-                            </CardActions>
-                        </Card>
-                    </Grid>
-                ))}
-                    
-                </Grid>
-            </container>
-        </main>
-        <footer className={classes.footer}>
-            <Typography variant="h6" align="center" gutterBottom>
-                    Footer
-            </Typography>
-            <Typography variant="subtitle1" align="center" color="textSecondary">
-                    Something here to give the footer a purpose!
-            </Typography>
-        </footer>
-    </>
-  )
-}
-
-export default App
+function App() {
+    return (
+    <Router> 
+      <Topbar />
+      <div className="container">
+        <Sidebar />
+        <Switch>
+          <Route exact path='/'>
+            <Home />
+          </Route> 
+          <Route path='/users'>
+              <UserList />
+          </Route> 
+          <Route path='/user/:userId'>
+              <User />
+          </Route> 
+          <Route path='/newUser'>
+              <NewUser />
+          </Route>
+          <Route path='/products'>
+              <ProductList />
+          </Route> 
+          <Route path='/product/:productId'>
+              <Product />
+          </Route> 
+          <Route path='/newproduct'>
+              <NewProduct />
+          </Route>               
+        </Switch>
+        </div>
+    </Router> 
+    );
+  }
+  
+  export default App;
